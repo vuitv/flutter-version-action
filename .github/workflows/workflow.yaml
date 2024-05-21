@@ -1,0 +1,36 @@
+name: Main workflow
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  lint_shellcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🎯 Clone repository
+        uses: actions/checkout@v4
+
+      - name: Run shellcheck
+        uses: ludeeus/action-shellcheck@master
+
+  test_version_file:
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+
+    steps:
+      - name: 🎯 Clone repository
+        uses: actions/checkout@v4
+
+      - name: 🚀 Run action
+        uses: ./
+        with:
+          pubspec-path: test/pubspec.yaml
+
+      - name: Verify Flutter version
+        run: flutter --version | grep '3.3.10'
+        shell: bash

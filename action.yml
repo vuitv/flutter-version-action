@@ -17,9 +17,9 @@ runs:
   using: 'composite'
   steps:
     - name: 🎯 Set up Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v2
       with:
-        go-version: '>=1.17.0'
+        go-version: '1.16'
 
     - name: 🚀 Install yq
       shell: bash
@@ -31,5 +31,4 @@ runs:
       shell: bash
       run: |
         FLUTTER_VERSION=$(yq eval '.environment.flutter' ${{ inputs.pubspec-path }})
-        echo "flutter-version=$(echo $FLUTTER_VERSION)" >> $GITHUB_OUTPUT
-        echo "::set-output name=FLUTTER_VERSION::${FLUTTER_VERSION}"
+        echo "flutter-version=${FLUTTER_VERSION}" >> $GITHUB_OUTPUT
