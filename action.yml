@@ -1,0 +1,34 @@
+name: 'Read Flutter SDK Version'
+description: 'A GitHub Action to read the Flutter SDK version from pubspec.yaml using yq and set it as an output variable.'
+author: 'VuiTv'
+branding:
+  icon: 'package'
+  color: 'blue'
+inputs:
+  pubspec-path:
+    description: 'The path to the pubspec.yaml file'
+    required: false
+    default: 'pubspec.yaml'
+outputs:
+  flutter-version:
+    value: ${{ steps.flutter-version-action.outputs.flutter-version }}
+    description: 'The Flutter SDK version'
+runs:
+  using: 'composite'
+  steps:
+    - name: 🎯 Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '>=1.17.0'
+
+    - name: 🚀 Install yq
+      shell: bash
+      run: |
+        GO111MODULE=on go get github.com/mikefarah/yq/v4
+
+    - name: 📋 Read flutter_sdk_version from pubspec.yaml
+      shell: bash
+      run: |
+        FLUTTER_VERSION=$(yq eval '.environment.flutter' ${{ inputs.pubspec-path }})
+        echo "flutter-version=$(echo $FLUTTER_VERSION)" >> $GITHUB_OUTPUT
+        echo "::set-output name=FLUTTER_VERSION::${FLUTTER_VERSION}"
