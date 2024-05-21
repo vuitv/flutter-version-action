@@ -24,7 +24,8 @@ runs:
     - name: 🚀 Install yq
       shell: bash
       run: |
-        GO111MODULE=on go get github.com/mikefarah/yq/v4
+        go install github.com/mikefarah/yq/v4@latest
+        echo "$HOME/go/bin" >> $GITHUB_PATH
 
     - name: 📋 Read flutter_sdk_version from pubspec.yaml
       shell: bash
