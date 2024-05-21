@@ -8,6 +8,27 @@ This GitHub Action reads the Flutter SDK version from a `pubspec.yaml` file usin
 
 ✅ Outputs flutter sdk version
 
+> [!IMPORTANT]
+>
+> You need to have the exact Flutter version
+> defined in your pubspec.yaml:
+>
+> **Good**
+>
+> ```yaml
+> environment:
+>   sdk: ">=3.3.0 <4.0.0"
+>   flutter: 3.19.0
+> ```
+>
+> **Bad**
+>
+> ```yaml
+> environment:
+>   sdk: ">=3.3.0 <4.0.0"
+>   flutter: ">= 3.19.0 <4.0.0"
+> ```
+
 ## Usage
 
 Standard usage:
