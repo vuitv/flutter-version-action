@@ -28,9 +28,10 @@ jobs:
 
       - name: 🚀 Run action
         uses: ./
+        id: flutter-version-action
         with:
           pubspec-path: test/pubspec.yaml
 
       - name: Verify Flutter version
-        run: flutter --version | grep '3.3.10'
+        run: echo "${{ steps.flutter-version-action.output.version }}" | grep '3.19.0'
         shell: bash

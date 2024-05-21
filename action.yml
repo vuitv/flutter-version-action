@@ -10,25 +10,20 @@ inputs:
     required: false
     default: 'pubspec.yaml'
 outputs:
-  flutter-version:
-    value: ${{ steps.flutter-version-action.outputs.flutter-version }}
+  version:
+    value: ${{ steps.flutter-version-action.outputs.version }}
     description: 'The Flutter SDK version'
 runs:
   using: 'composite'
   steps:
-    - name: 🎯 Set up Go
-      uses: actions/setup-go@v2
+    - name: 📋 Read from pubspec.yaml
+      id: lookupVersion
+      uses: mikefarah/yq@master
       with:
-        go-version: '1.16'
+        cmd: yq '.environment.flutter' ${{ inputs.pubspec-path }}
 
-    - name: 🚀 Install yq
+    - name: 🚀 Output
       shell: bash
+      id: flutter-version-action
       run: |
-        go install github.com/mikefarah/yq/v4@latest
-        echo "$HOME/go/bin" >> $GITHUB_PATH
-
-    - name: 📋 Read flutter_sdk_version from pubspec.yaml
-      shell: bash
-      run: |
-        FLUTTER_VERSION=$(yq eval '.environment.flutter' ${{ inputs.pubspec-path }})
-        echo "flutter-version=${FLUTTER_VERSION}" >> $GITHUB_OUTPUT
+        echo "version=${{ steps.lookupVersion.outputs.result }}" >> $GITHUB_OUTPUT

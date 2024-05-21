@@ -36,10 +36,11 @@ Standard usage:
 ```yaml
 steps:
   - name: 📍 Read Flutter SDK Version
-  - uses: vuitv/flutter-version-action@v1
+    uses: vuitv/flutter-version-action@v3
+    id: flutter-version-action
 
   - name: Use the Flutter version variable
-    run: echo "The Flutter version is ${{ steps.flutter-version-action.outputs.flutter-version }}"
+    run: echo "The Flutter version is ${{ steps.flutter-version-action.outputs.version }}"
 ```
 
 ## Inputs
@@ -52,4 +53,4 @@ The action takes the following inputs:
 
 The actions outputs the following:
 
-- `flutter-version`: The Flutter SDK version.
+- `version`: The Flutter SDK version.
