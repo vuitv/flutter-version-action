@@ -31,5 +31,5 @@ jobs:
         id: flutter-version-action
 
       - name: Verify Flutter version
-        run: echo "${{ steps.flutter-version-action.output.version }}" | grep '3.19.0'
+        run: echo "${{ steps.flutter-version-action.outputs.version }}" | grep '3.19.0'
         shell: bash
