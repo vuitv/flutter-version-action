@@ -12,7 +12,7 @@ jobs:
       - name: 🎯 Clone repository
         uses: actions/checkout@v4
 
-      - name: Run shellcheck
+      - name: 🧾 Run shellcheck
         uses: ludeeus/action-shellcheck@master
 
   test_version_file:
@@ -30,6 +30,6 @@ jobs:
         uses: ./
         id: flutter-version-action
 
-      - name: Verify Flutter version
-        run: echo "${{ steps.flutter-version-action.outputs.version }}" | grep '3.19.0'
+      - name: ✅ Verify Flutter version
+        run: echo "${{ steps.flutter-version-action.outputs.version }}" | grep "3.19.0"
         shell: bash
